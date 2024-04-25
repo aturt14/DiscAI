@@ -17,7 +17,7 @@ First, you need to ensure that ollama serve is running:
 ```sh
 ollama serve
 ```
-Then create two models using ollama create (from a Modelfile) and pass them (their names) as 1st and 2nd arguments. Lastly, an initial prompt is needed, because someone has to start the conversation.
+Then create two models using ollama create (from a Modelfile) and pass them (their names) as 1st and 2nd arguments. Lastly, an initial prompt is needed, because someone has to start the conversation. The initial prompt appears to model1 as from model2.
 ```sh
 python3 main.py <model1> <model2> <initial_prompt>
 ```
