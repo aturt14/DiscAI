@@ -60,13 +60,15 @@ def main():
         initial_prompt = sys.argv[3]
     prompt = f'/usr/bin/curl http://localhost:11434/api/generate -d \'{{"model": "{models[0]}", "prompt": "{initial_prompt}", "stream": false}}\''
 
-    # We start with MOD 1, MOD 2 will answer him, initial prompt is written as MOD 1
-    history = (
-        [initial_prompt]
-    )  # A list describing the communication, contains MOD 1 then MOD 2 then MOD 1 ...
+    # We start with MOD 2, MOD 1 will answer him, initial prompt is written as MOD 1
+    history = [
+        initial_prompt
+    ]  # A list describing the communication, contains MOD 2 then MOD 1 then MOD 2 ...
 
     index = 0
-    print(f"Conversation of {models[0]} with {models[1]}:")
+    print(
+        f"Conversation of {models[1]} with {models[0]}:"
+    )  # The one starting the conversation ought to be first
     converse(models, history, prompt, index)
 
 
