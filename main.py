@@ -33,19 +33,24 @@ def get_prompt(
 
 def converse(models, history, prompt, index):
     first = True
+
     while True:
-        result = subprocess.run(prompt, shell=True, capture_output=True, text=True)
-        result = json.loads(result.stdout)
-        if first:
-            response = result["response"]
-            first = False
-        else:
-            response = result["message"]["content"]
+        try:
+            result = subprocess.run(prompt, shell=True, capture_output=True, text=True)
+            result = json.loads(result.stdout)
+            if first:
+                response = result["response"]
+                first = False
+            else:
+                response = result["message"]["content"]
+
+        except KeyboardInterrupt:
+            response = input(f"Enter what {models[index]} should say: \n> ")
+
         history.append(response.replace("'", "").replace("\n", " ").replace('"', ""))
         print(
             f"\n---------------------------------------------------------\n{models[index]}:\n{response}\n---------------------------------------------------------"
         )
-
         index += 1
         index %= 2
         prompt = get_prompt(history, models[index])
