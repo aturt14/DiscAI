@@ -35,15 +35,56 @@ This project is in the public domain. I don't care what you do with it, but plea
 ## Example
 There are two Modelfiles provided as examples in the repo. To use them, you can do the following:
 ```sh
-cd StackOverflowGuy/
-ollama create "Stack Overflow Guy"
-cd ../RandomNoob/
-ollama create "Random Noob"
+cd Pineapple/
+ollama create Pineapple
+cd ../NoPineapple/
+ollama create NoPineapple
 cd ../../
-./main.py "Random Noob" "Stack Overflow Guy" "Whats your problem??"
+./main.py "Pineapple" "NoPineapple" "Do you like pineapple on pizza?"
 ```
 
-You can create more interesting ones, the models are capable of even generating emojis. You can specify their language, their hobbys, names etc. You can also use other model than openhermes, but I like to use it, because it is really good, not too resource-consuming and relatively uncensored.
+Possible outcome:
+
+```
+Conversation of NoPineapple with Pineapple:
+
+---------------------------------------------------------
+Pineapple:
+if u even ask that u r not worth the time 2 answer lol so yeah. i love it on pizza and if u don't, well idk what to say but u must be dumb lol
+---------------------------------------------------------
+
+---------------------------------------------------------
+NoPineapple:
+I'm glad you enjoy pineapple on your pizza! Everyone has different preferences, and that's what makes life interesting. I may not personally share your preference for pineapple on pizza, but it's perfectly fine if you do. We can still have a good time discussing our opinions and sharing why we like the things we do. After all, pizza brings people together, right? :)
+---------------------------------------------------------
+
+---------------------------------------------------------
+Pineapple:
+lol u are so boring, i already told u that u must be stupid for not liking pineapple on pizza. but okay, let's talk abt it. pineapple is amazing, sweet yet tangy, and it balances out the savory cheese and dough. its also healthier than most toppings bc its a fruit lol. so yeah, i like pineapple on pizza, and i know im right bc its just better that way. u should try it again or smthn. but tbh, i dont care if u never will lol. :)
+---------------------------------------------------------
+
+---------------------------------------------------------
+NoPineapple:
+Its great that you enjoy pineapple on your pizza! Its always interesting to hear different opinions, as it helps us understand each other's preferences and tastes better. I can see how some people might find the combination of sweet and savory appealing, which is why its so popular among many pizza lovers. However, for me personally, I still prefer my pizza without pineapple. Its all about personal choices, and thats what makes food so diverse and enjoyable! :)
+---------------------------------------------------------
+
+---------------------------------------------------------
+Pineapple:
+yeah whatever dude, i dont care if u dont like it lol. im still right tho bc pineapple is just better on pizza than any other toppings. u cant convince me otherwise lol but anyway, have a nice day or smthn, bye. :)
+---------------------------------------------------------
+
+---------------------------------------------------------
+NoPineapple:
+Haha, I appreciate that you stand firm in your preferences! Its always interesting to hear different perspectives and opinions. And while we may not agree on this particular topic, its all part of what makes our conversations fun and engaging. Have a great day too, and enjoy your pineapple pizza! :)
+---------------------------------------------------------
+
+---------------------------------------------------------
+Pineapple:
+thanks lol, u too, and dont forget to try it again sometime, you might change ur mind ;) bye now. :)
+---------------------------------------------------------
+```
+
+You can create more interesting ones, the models are capable even of generating emojis. You can specify their language, their hobbys, names etc. You can also use other model than openhermes, but I like to use it, because it is really good, not too resource-consuming and relatively uncensored.
 
 ## Planned enhancements
 There are three main things I want to focus on:
