@@ -6,7 +6,29 @@ import sys
 # MOD 1 and MOD 2 mean model no. 1 and model no. 2 selected by the user
 
 
-def clean_response(response):
+def get_history_string(history, models):
+    history_string = ""
+    for i in range(len(history) - 1):
+        history_string += f"{models[i % 2]}: {history[i]} "
+    return history_string
+
+
+# There is a need to distinguish long term and short term memory since otherwise it would grow too large.
+def summarize_short_term(history, models, model_index):
+    history_string = get_history_string(history, models)
+    prompt = f'Summarize the following conversation from {models[model_index]}\'s perspective - that means {models[model_index]} is replaced by "you" {history_string}'
+    command = f'/usr/bin/curl http://localhost:11434/api/generate -d \'{{"model": "{models[models[(model_index + 1) % 2]]}", "prompt": "{prompt}", "stream": false}}\''
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    result = json.loads(result.stdout)
+    summary = f"Here is a short summary of what has happened: {result}"
+
+    return summary
+
+
+def summarize_long_term(history, models, model_index): ...
+
+
+def filter_bad_characters(response):
     return response.replace("'", "").replace("\n", " ").replace('"', "")
 
 
@@ -56,7 +78,7 @@ def converse(models, history, prompt, index):
 
     while True:
         response = get_response(prompt, models[index], first)
-        history.append(clean_response(response))
+        history.append(filter_bad_characters(response))
         print(
             f"\n---------------------------------------------------------\n<{message_id}>\n{models[index]}:\n{response}\n---------------------------------------------------------"
         )
