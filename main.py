@@ -6,6 +6,10 @@ import sys
 # MOD 1 and MOD 2 mean model no. 1 and model no. 2 selected by the user
 
 
+def clean_response(response):
+    return response.replace("'", "").replace("\n", " ").replace('"', "")
+
+
 def get_prompt(
     history, responding_model
 ):  # Responding means that he has not yet responded
@@ -31,25 +35,30 @@ def get_prompt(
     return prompt
 
 
+def get_response(prompt, current_model, first):
+    try:
+        result = subprocess.run(prompt, shell=True, capture_output=True, text=True)
+        result = json.loads(result.stdout)
+        if first:
+            response = result["response"]
+            first = False
+        else:
+            response = result["message"]["content"]
+
+    except KeyboardInterrupt:
+        response = input(f"Enter what {current_model} should say: \n> ")
+    return response
+
+
 def converse(models, history, prompt, index):
     first = True
+    message_id = 1
 
     while True:
-        try:
-            result = subprocess.run(prompt, shell=True, capture_output=True, text=True)
-            result = json.loads(result.stdout)
-            if first:
-                response = result["response"]
-                first = False
-            else:
-                response = result["message"]["content"]
-
-        except KeyboardInterrupt:
-            response = input(f"Enter what {models[index]} should say: \n> ")
-
-        history.append(response.replace("'", "").replace("\n", " ").replace('"', ""))
+        response = get_response(prompt, models[index], first)
+        history.append(clean_response(response))
         print(
-            f"\n---------------------------------------------------------\n{models[index]}:\n{response}\n---------------------------------------------------------"
+            f"\n---------------------------------------------------------\n<{message_id}>\n{models[index]}:\n{response}\n---------------------------------------------------------"
         )
         index += 1
         index %= 2
@@ -58,7 +67,7 @@ def converse(models, history, prompt, index):
 
 def main():
     if len(sys.argv) < 3:
-        print("Usage: ./hoch.py <modelname1> <modelname2> <initial_prompt>")
+        print("Usage: ./main.py <modelname1> <modelname2> <initial_prompt>")
         exit(1)
     else:
         models = [sys.argv[1], sys.argv[2]]
