@@ -67,7 +67,10 @@ def get_response(prompt, current_model, first):
             response = result["message"]["content"]
 
     except KeyboardInterrupt:
-        response = input(f"Enter what {current_model} should say: \n> ")
+        try:
+            response = input(f"\nEnter what {current_model} should say: \n> ")
+        except KeyboardInterrupt:
+            exit(0)
     return response
 
 
