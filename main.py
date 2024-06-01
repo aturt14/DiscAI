@@ -63,7 +63,6 @@ def get_response(prompt, current_model, first):
         result = json.loads(result.stdout)
         if first:
             response = result["response"]
-            first = False
         else:
             response = result["message"]["content"]
 
@@ -78,6 +77,7 @@ def converse(models, history, prompt, index):
 
     while True:
         response = get_response(prompt, models[index], first)
+        first = False
         history.append(filter_bad_characters(response))
         print(
             f"\n---------------------------------------------------------\n<{message_id}>\n{models[index]}:\n{response}\n---------------------------------------------------------"
