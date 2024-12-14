@@ -35,7 +35,7 @@ def filter_bad_characters(response):
 def get_prompt(
     history, responding_model
 ):  # Responding means that he has not yet responded
-    base_prompt = f'curl http://localhost:11434/api/chat -d \'{{"model": "{responding_model}", "stream":false, "messages": ['
+    base_prompt = f'/usr/bin/curl http://localhost:11434/api/chat -d \'{{"model": "{responding_model}", "stream":false, "messages": ['
     end_prompt = """]}'"""
 
     prompt = base_prompt
